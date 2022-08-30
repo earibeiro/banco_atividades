@@ -1,25 +1,60 @@
-*
-CRIAR A TABELA
-PRODUTO(ID,NOME,PRECO_CUSTO,PRECO_VENDA,ATIVO)
-3 INSERÇÕES E VERIFIQUE */
+DROP DATABASE IF EXISTS banco_projeto;
+CREATE DATABASE banco_projeto;
+USE banco_projeto;
 
-DROP TABLE IF EXISTS produto;
-
-CREATE TABLE produto(
+CREATE TABLE estado(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
-, nome VARCHAR(255) NOT NULL UNIQUE
-, preco_custo DECIMAL(8,2) NOT NULL
-, preco_venda DECIMAL(8,2) NOT NULL
-, ativo char(1) NOT NULL DEFAULT 'S'
-); 
+,nome VARCHAR(255) NOT NULL UNIQUE
+,sigla CHAR(2) NOT NULL UNIQUE
+,ativo CHAR(1) NOT NULL DEFAULT 'S'
+);
 
-INSERT INTO produto (id,nome,preco_custo,preco_venda,ativo)
-VALUES (NULL, 'BATATA', 0.50, 1.50, 'S');
+INSERT INTO estado (id, nome, sigla, ativo) 
+VALUES (NULL, 'PARANÁ', 'PR','S');
 
-INSERT INTO produto (id,nome,preco_custo,preco_venda,ativo)
-VALUES (NULL, 'CEBOLA', 0.65, 0.97, 'S');
+INSERT INTO estado
+VALUES (NULL, 'SÃO PAULO','SP','S');
 
-INSERT INTO produto (id,nome,preco_custo,preco_venda,ativo)
-VALUES (NULL, 'CENOURA', 0.98, 1.48, 'S');
+INSERT INTO estado (nome, sigla)
+VALUES ('MATO GROSSO', 'MT');
 
-SELECT nome,preco_custo,preco_venda,ativo FROM produto;
+SELECT id,nome, sigla,ativo FROM estado;
+
+CREATE TABLE cidade(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome VARCHAR(255) NOT NULL
+,estado_id INT NOT NULL
+,ativo CHAR(1) NOT NULL DEFAULT 'S'
+,CHECK (ativo IN('S','N'))
+,FOREIGN KEY (estado_id) REFERENCES estado (id)
+);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('PARANAVAÍ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('MARINGÁ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('SÃO PAULO', 2);
+
+SELECT nome, estado_id, ativo FROM cidade;
+
+CREATE TABLE advogado(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome VARCHAR(255) NOT NULL
+,e_mail VARCHAR(255) NOT NULL
+,ddd_telefone VARCHAR(255) 
+,ativo CHAR(1) NOT NULL DEFAULT 'S'
+);
+
+INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo)
+VALUES(NULL, 'João da Silva', 'jsilva@gmail.com','44999887766','S');
+
+INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo)
+VALUES(NULL, 'Luisa Grego Rocha', 'lgrocha@yahoo.com','44999332211','S');
+
+INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo)
+VALUES(NULL,'Julia dos Santos', 'julisantos@gmail.com','4499922557788','S');
+
+SELECT id,nome,e_mail,ddd_telefone,ativo FROM advogado;
