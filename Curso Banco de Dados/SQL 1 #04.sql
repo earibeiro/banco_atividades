@@ -195,9 +195,10 @@ DELETE FROM cidade WHERE cidade_id = 23;
 -- agora sim, eliminando o estado com id 23
 DELETE FROM estado WHERE id = 23;
 
-/*
+/**
 AGORA É A SUA VEZ!!!! Para que você aprenda, é muito importante que não copie e cole, digite os comandos e mentalize o que está fazendo na medida que digita cada comando. 
 Uma dica importante é que você digite primeiro no bloco de notas, com intuito de testar se realmente consegue digitar os comandos sem a ajuda do IDE – depois teste os comandos.
+*/
 
 -- 9.	Escreva o comando para alterar o valor de uma coluna de um único registro de uma tabela utilizando como filtro, o Primary Key.
 UPDATE estado SET nome = 'PARAÍBA' WHERE id = 4;
