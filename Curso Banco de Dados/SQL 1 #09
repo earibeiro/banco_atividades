@@ -6,6 +6,18 @@ Lista de exercícios - JOIN
 -> É necessário utilizar o JOIN quando possuímos informações que se encontram em tabelas distintas e queremos apresentá-las de uma única vez, 
 é indispensável que de alguma forma estas tabelas possuam algum vínculo. 
 
+02 - Qual a sintaxe do JOIN? Maiúscula ou minúscula faz diferença? Existe algum padrão? Explique.
+-> Conforme aprendemos em aula, a sintaxe do comando não é definida dentro do SQL. A diferença entre letras maiúsculas e minúsculas é irrelevante, vez que por ser
+uma palavra restrita - que sempre ativará o código - não poderá ser utilizadaa para outro fim.
+-> O padrão é estipulado pela própria empresa ou pelo professor. Em aula o padrão aplicado são todas as letras maiúsculas para os comandos: JOIN.
+
+
+05 - Existe mais de uma maneira de realizar o JOIN? Quantas? Qual é a mais eficiente? 
+-> O próprio JOIN pode ser expressado como INNER JOIN ou apenas JOIN, havendo outras formas de realizar o comando. 
+-> Sendo as outras formas: (INNER) JOIN, LEFT (OUTER) JOIN, RIGHT (OUTER) JOIN, FULL (OUTER) JOIN, CROSS JOIN. 
+-> É impossível categorizar um como o mais eficiente, cada situação irá requerer um JOIN específico. Entretanto, o mais utilizado é o JOIN / INNER JOIN.
+
+
 06 - Para realizar o JOIN de 1523 tabelas, quantas comparações de junções são necessárias? Explique.
 -> Serão necessárias 1522 comparações. Explicando-se de uma forma simples, a quantidade de comandos sempre será na proporção: nTabelas - 1 = junções. Utilizando um número menor, 
 podemos expressar: T -> T -> T -> T -> T, 5 Tabelas (T) e 4 junções (->).
