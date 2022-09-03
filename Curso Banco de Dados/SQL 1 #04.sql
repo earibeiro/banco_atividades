@@ -199,20 +199,30 @@ DELETE FROM estado WHERE id = 23;
 AGORA É A SUA VEZ!!!! Para que você aprenda, é muito importante que não copie e cole, digite os comandos e mentalize o que está fazendo na medida que digita cada comando. 
 Uma dica importante é que você digite primeiro no bloco de notas, com intuito de testar se realmente consegue digitar os comandos sem a ajuda do IDE – depois teste os comandos.
 
-9.	Escreva o comando para alterar o valor de uma coluna de um único registro de uma tabela utilizando como filtro, o Primary Key.
+-- 9.	Escreva o comando para alterar o valor de uma coluna de um único registro de uma tabela utilizando como filtro, o Primary Key.
+UPDATE estado SET nome = 'PARAÍBA' WHERE id = 4;
+DESC estado; -- não é esse
+SELECT nome FROM estado;
+SELECT id,nome FROM estado ORDER BY id; -- order by coloca em ordem numérica
 
+-- 10.	Refaça o exercício anterior alterando os dados de mais que uma coluna de um único registro sem utilizar como filtro a chave primária. A escolha da coluna do filtro é muito importante – TOME CUIDADO.
+UPDATE estado SET nome = 'PARAÍBA', sigla = 'PB' WHERE nome = 'PARAÍBA';
+SELECT id,nome,sigla FROM estado ORDER BY id;
 
-10.	Refaça o exercício anterior alterando os dados de mais que uma coluna de um único registro sem utilizar como filtro a chave primária. A escolha da coluna do filtro é muito importante – TOME CUIDADO.
+-- 11.	Alter o valor de uma coluna de todos os registros.
+SELECT * FROM estado;
+UPDATE estado SET regiao_estado = 'TESTE';
+SELECT * FROM estado;
+UPDATE estado SET regiao_estado = 'VALOR NÃO INFORMADO';
+SELECT * FROM estado;
 
+-- 12.	Exclua um único registro de uma tabela sem utilizar como filtro, a chave primária.
+DELETE FROM cidade WHERE nome = 'PARANAVAÍ';
+SELECT * FROM cidade;
 
-11.	Alter o valor de uma coluna de todos os registros.
+-- 13.	Escreva todos os comandos necessários para excluir o cliente com o id “38”.
+-- Não há cliente nestas tabelas, porém a fim de apenas apresentar como ocorreria.
+DELETE FROM cliente WHERE id = 38;
 
-
-12.	Exclua um único registro de uma tabela sem utilizar como filtro, a chave primária.
-
-
-13.	Escreva todos os comandos necessários para excluir o cliente com o id “38”.
-
-
-*/
-
+-- Como aqui neste caso estudamos cidade e estado, um exemplo de cidade
+DELETE FROM cidade WHERE id = 38;
