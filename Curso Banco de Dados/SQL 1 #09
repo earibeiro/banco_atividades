@@ -1,0 +1,11 @@
+/**
+Lista de exercícios - JOIN 
+
+01 - O que é JOIN? Quando é necessário?
+-> JOIN é utilizado para combinar linhas/fileiras de duas ou mais tabelas, utilizando uma coluna em comum entre estas tabelas (sem coluna comum não funciona).
+-> É necessário utilizar o JOIN quando possuímos informações que se encontram em tabelas distintas e queremos apresentá-las de uma única vez, 
+é indispensável que de alguma forma estas tabelas possuam algum vínculo. 
+
+06 - Para realizar o JOIN de 1523 tabelas, quantas comparações de junções são necessárias? Explique.
+-> Serão necessárias 1522 comparações. Explicando-se de uma forma simples, a quantidade de comandos sempre será na proporção: nTabelas - 1 = junções. Utilizando um número menor, 
+podemos expressar: T -> T -> T -> T -> T, 5 Tabelas (T) e 4 junções (->).
