@@ -155,17 +155,24 @@ CREATE TABLE telefones(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
 ,ddd CHAR(2) NOT NULL
 ,telefone CHAR(9) NOT NULL
-,cliente_id INT NOT NULL
+,cliente_id INT
+,advogado_id INT
 ,FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+,FOREIGN KEY (advogado_id) REFERENCES advogado(id)
 );
 
 INSERT INTO telefones (ddd,telefone,cliente_id)
-VALUES ('44','988776655',3), ('44','993921122',1), ('44','997946462',2);
+VALUES ('44','988776655',3), ('44','993921122',1), ('44','997946462',2); -- TRÊS INSERT REALIZADOS EM UM ÚNICO COMANDO!
+
+INSERT INTO telefones (ddd,telefone,advogado_id)
+VALUES ('44','968527954',1), ('44','982654864',2), ('44','955464621',3), ('11','954484456',1);
 
 SELECT ddd FROM telefones;
-
 SELECT telefones.ddd, telefones.telefone, cliente.nome FROM telefones
 JOIN cliente ON telefones.cliente_id = cliente.id;
+SELECT telefones.ddd, telefones.telefone, advogado.nome FROM telefones
+JOIN advogado ON telefones.advogado_id = advogado.id;
+SELECT * FROM telefones;
 
 CREATE TABLE contrato_de_honorarios(
 id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
@@ -179,8 +186,66 @@ INSERT INTO contrato_de_honorarios (valor_do_contrato,forma_de_pagamento,cliente
 VALUES (3500,'2 cheques de 1750 reais',2);   
 
 INSERT INTO contrato_de_honorarios (valor_do_contrato,forma_de_pagamento,cliente_id)
-VALUES (12000,'à vista',1), (300,'Três parcelas de R$ 100,00',3);
+VALUES (12000,'à vista',1), (300,'Três parcelas de R$ 100,00',3); -- DOIS INSERT FEITOS EM UM ÚNICO COMANDO
 
 SELECT cliente.nome, contrato_de_honorarios.valor_do_contrato, contrato_de_honorarios.forma_de_pagamento FROM contrato_de_honorarios
-JOIN cliente ON contrato_de_honorarios.cliente_id = cliente.id
+JOIN cliente ON contrato_de_honorarios.cliente_id = cliente.id;
+SELECT * FROM contrato_de_honorarios;
+
+CREATE TABLE contrato_advogado(
+contrato_de_honorarios_id INT NOT NULL
+,advogado_id INT NOT NULL
+,FOREIGN KEY (contrato_de_honorarios_id) REFERENCES contrato_de_honorarios(id)
+,FOREIGN KEY (advogado_id) REFERENCES advogado(id)
+);
+
+INSERT INTO contrato_advogado (contrato_de_honorarios_id, advogado_id)
+VALUES (1,2);
+
+INSERT INTO contrato_advogado (contrato_de_honorarios_id, advogado_id)
+VALUES (2,3);
+
+INSERT INTO contrato_advogado (contrato_de_honorarios_id, advogado_id)
+VALUES (3,1);
+
+SELECT advogado.nome, contrato_advogado.contrato_de_honorarios_id FROM contrato_advogado 
+JOIN advogado ON contrato_advogado.advogado_id = advogado.id;
+SELECT * FROM contrato_advogado;
+
+CREATE TABLE processo(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,numero_do_processo VARCHAR(45)
+,comarca VARCHAR(45) NOT NULL
+,competencia VARCHAR(45) NOT NULL
+,tipo_de_acao VARCHAR(45) NOT NULL
+,data_de_ingresso DATE NOT NULL
+,valor_da_causa INT NOT NULL
+,data_da_ultima_movimentacao DATE NOT NULL
+,ultima_movimentacao VARCHAR(45) NOT NULL
+,requerente VARCHAR(45) NOT NULL
+,requerido VARCHAR(45) NOT NULL
+,data_da_realizacao DATE
+,atividade_a_ser_desempenhada VARCHAR(45)
+,orgao_responsavel VARCHAR(45) NOT NULL
+,contrato_de_honorarios_id INT NOT NULL
+,FOREIGN KEY (contrato_de_honorarios_id) REFERENCES contrato_de_honorarios(id)
+);
+
+INSERT INTO processo (numero_do_processo, comarca, competencia, tipo_de_acao, data_de_ingresso,valor_da_causa,data_da_ultima_movimentacao,ultima_movimentacao
+,requerente,requerido,atividade_a_ser_desempenhada,orgao_responsavel,contrato_de_honorarios_id)
+VALUES ('0000001-01.2022.8.16.0130','PARANAVAÍ','1ª Vara Criminal','Defesa em processo ordinário','2021-07-11',0,'2022-06-23','Prazo para apresentar defesa','Ministério Público','Naruto Uzumaki'
+,'Resposta à Acusação', 'Poder Judiciário', 2); -- Sem utilizar data_da_realizacao, processo em andamento!
+
+INSERT INTO processo (comarca, competencia, tipo_de_acao, data_de_ingresso,valor_da_causa,data_da_ultima_movimentacao,ultima_movimentacao
+,requerente,requerido,data_da_realizacao,atividade_a_ser_desempenhada,orgao_responsavel,contrato_de_honorarios_id)
+VALUES ('MARINGÁ','Tabelionato de Notas', 'Acompanhamento jurídico', '2022-03-22', 0, '2022-03-22', 'Assinatura realizada em cartório','Almondega Feroz','Macarrão Bravo', '2022-03-22','Assinatura em contrato' 
+,'Tabelionato de Notas',3); -- Não adicionando o numero_do_processo
+
+INSERT INTO processo (comarca, competencia, tipo_de_acao, data_de_ingresso,valor_da_causa,data_da_ultima_movimentacao,ultima_movimentacao
+,requerente,requerido,atividade_a_ser_desempenhada,orgao_responsavel,contrato_de_honorarios_id)
+VALUES ('PARANAVAÍ','Receita Federal do Brasil','Regularização de proventos','2022-01-20',75000,'2022-08-12','Remessa para análise preliminar', 'Receita Federal', 'Ash Ketchum'
+,'Defesa em processo administrativo', 'Receita Federal de Paranavaí',1); -- Não adicionando: numero_do_processo e data_da_realização // Em um processo normal ele possuiria número para acompanhamento!
+
+SELECT requerente,requerido,atividade_a_ser_desempenhada FROM processo;
+SELECT * FROM processo;
 
