@@ -56,6 +56,10 @@ INSERT INTO cidade (nome, estado_id)
 VALUES ('SÃO PAULO', 2);
 INSERT INTO cidade (nome, estado_id)
 VALUES ('CUIABÁ', 3);
+INSERT INTO cidade (nome, estado_id)
+VALUES ('CURITIBA',1);
+INSERT INTO cidade (nome, estado_id)
+VALUES ('LONDRINA', 1);
 
 SELECT id,nome, estado_id, ativo FROM cidade;
 
@@ -70,11 +74,17 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
 );
 
 INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
-VALUES ('rua das flores',1010,'floresta','',1);
+VALUES ('Rua das flores',1010,'floresta','',1);
 INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
-VALUES ('rua das pedras',5011,'pedreira','',1);
+VALUES ('Rua das pedras',5011,'pedreira','',1);
 INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
-VALUES ('rua dos ninjas',3078,'konoha','',2);
+VALUES ('Rua da justiça',2020,'jus','Apartamento 201',5);
+INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
+VALUES ('Avenida das palmeiras',654,'Palmas','',6);
+INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
+VALUES ('Avenida político corrupto',9874,'desilusão','Condomínio desvio de verbas',2);
+INSERT INTO endereco (rua,numero,bairro,complemento,cidade_id)
+VALUES ('Rua dos ninjas',3078,'konoha','',2);
 
 SELECT * FROM endereco;
 
@@ -92,7 +102,7 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
 INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo,endereco_id)
 VALUES(NULL, 'João da Silva', 'jsilva@gmail.com','44999887766','S',3);
 INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo,endereco_id)
-VALUES(NULL, 'Luisa Grego Rocha', 'lgrocha@yahoo.com','44999332211','S',1);
+VALUES(NULL, 'Luisa Grego Rocha', 'lgrocha@yahoo.com','44999332211','S',4);
 INSERT INTO advogado(id,nome,e_mail,ddd_telefone,ativo,endereco_id)
 VALUES(NULL,'Julia dos Santos', 'julisantos@gmail.com','4499922557788','S',2);
 
@@ -130,12 +140,47 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
 );
 
 INSERT INTO cliente (nome, cpf, rg, e_mail, data_nascimento, estado_civil, documentos_da_acao, endereco_id)
-VALUES ('Naruto Uzumaki', '00600600666','123456789','narutinho123@gmail.com',05/09/1997,'casado','petição inicial, procuração, holerite',3);
+VALUES ('Naruto Uzumaki', '00600600666','123456789','narutinho123@gmail.com','1997-09-05','casado','petição inicial, procuração, holerite',6);
 
 INSERT INTO cliente (nome, cpf, rg, e_mail, data_nascimento, estado_civil, documentos_da_acao, endereco_id)
-VALUES ('Ash Ketchum', '10550178933','123456798','mestrepkmn@gmail.com',10/12/1980,'solteiro','procuração, comprovante de endereço',1);
+VALUES ('Ash Ketchum', '10550178933','123456798','mestrepkmn@gmail.com','1980-12-10','solteiro','procuração, comprovante de endereço',1);
 
 INSERT INTO cliente (nome, cpf, rg, e_mail, data_nascimento, estado_civil, documentos_da_acao, endereco_id)
-VALUES ('Almondega Feroz', '2345678918','654987123','carninha@gmail.com',29/03/2002,'solteiro','comprovante de endereço',2);
+VALUES ('Almondega Feroz', '2345678918','654987123','carninha@gmail.com','2002-07-23','solteiro','comprovante de endereço',5);
 
-SELECT nome FROM cliente;
+SELECT nome,cpf,estado_civil FROM cliente;
+SELECT nome, estado_civil FROM cliente WHERE estado_civil = 'casado';
+
+CREATE TABLE telefones(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,ddd CHAR(2) NOT NULL
+,telefone CHAR(9) NOT NULL
+,cliente_id INT NOT NULL
+,FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+);
+
+INSERT INTO telefones (ddd,telefone,cliente_id)
+VALUES ('44','988776655',3), ('44','993921122',1), ('44','997946462',2);
+
+SELECT ddd FROM telefones;
+
+SELECT telefones.ddd, telefones.telefone, cliente.nome FROM telefones
+JOIN cliente ON telefones.cliente_id = cliente.id;
+
+CREATE TABLE contrato_de_honorarios(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,valor_do_contrato INT NOT NULL
+,forma_de_pagamento VARCHAR(45)
+,cliente_id INT NOT NULL
+,FOREIGN KEY (cliente_id) REFERENCES cliente(id) 
+);
+
+INSERT INTO contrato_de_honorarios (valor_do_contrato,forma_de_pagamento,cliente_id)
+VALUES (3500,'2 cheques de 1750 reais',2);   
+
+INSERT INTO contrato_de_honorarios (valor_do_contrato,forma_de_pagamento,cliente_id)
+VALUES (12000,'à vista',1), (300,'Três parcelas de R$ 100,00',3);
+
+SELECT cliente.nome, contrato_de_honorarios.valor_do_contrato, contrato_de_honorarios.forma_de_pagamento FROM contrato_de_honorarios
+JOIN cliente ON contrato_de_honorarios.cliente_id = cliente.id
+
