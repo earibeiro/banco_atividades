@@ -1,4 +1,5 @@
 -- 19/09/2022
+-- Equipe: Aline Yuka Noguti; Eduardo Albuquerque Ribeiro; e Vitor Matheus Ferreira.
 /** 
 O que é?
 O comando JOIN é utilizado quando é necessário combinar dados de duas ou mais tabelas em um único 
@@ -17,6 +18,4 @@ filtrar a tabela.
 Ex.:
 SELECT advogado.nome, contrato_advogado.contrato_de_honorarios_id FROM contrato_advogado 
 JOIN advogado ON contrato_advogado.advogado_id = advogado.id;
-
-
 **/
