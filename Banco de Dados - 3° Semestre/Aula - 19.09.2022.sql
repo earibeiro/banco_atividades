@@ -1,5 +1,10 @@
 -- 19/09/2022
 -- Equipe: Aline Yuka Noguti; Eduardo Albuquerque Ribeiro; e Vitor Matheus Ferreira.
+
+/** 
+ATIVIDADE JOIN - EXERCÍCIO 01
+**/
+
 /** 
 O que é?
 O comando JOIN é utilizado quando é necessário combinar dados de duas ou mais tabelas em um único 
