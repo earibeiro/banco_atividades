@@ -54,11 +54,26 @@ AND (estado.id = 1 OR estado.id = 4 OR estado.id = 5);
 
 
 10.	Escreva o comando que liste todas as vendas e o nome do respectivo funcionário que a realizou.
-11.	Liste o nome dos produtos, o preço de venda e o nome da unidade de medida.
-12.	Liste o nome dos produtos da marca "Coca-cola".
-13. DESAFIO!!! Liste os nomes dos clientes do estado de São Paulo que já compraram o produto 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'.
-Semântica
+SELECT venda.*, funcionario.nome
+FROM venda, funcionario
+WHERE venda.funcionario_id = funcionario.id;
 
+11.	Liste o nome dos produtos, o preço de venda e o nome da unidade de medida.
+SELECT produto.nome, produto.preco_venda, unidade_medida.nome
+FROM produto, unidade_medida
+WHERE produto.unidade_medida_id = unidade_medida.id;
+
+12.	Liste o nome dos produtos da marca "Coca-cola".
+SELECT produto.nome
+FROM produto, marca
+WHERE produto.marca_id = marca.id
+AND produto.marca_id = '1';
+
+13. DESAFIO!!! Liste os nomes dos clientes do estado de São Paulo que já compraram o produto 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'.
+
+
+
+Semântica
 1.	Em que caso devemos utilizar o JOIN? Quais tabelas podem ser utilizando em um comando JOIN?
 2.	No caso do JOIN, o que é condição de junção. Qual cuidado devemos ter. 
 3.	Em relação a sintaxe, em um JOIN não é necessário utilizarmos condições (WHERE) - o comando irá executar normalmente. Porém, em questão de semântica, a cada junção é necessário ter ao menos 1 condição. Explique.
