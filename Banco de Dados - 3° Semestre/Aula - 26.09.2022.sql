@@ -75,8 +75,14 @@ AND produto.marca_id = '1';
 
 Semântica
 1.	Em que caso devemos utilizar o JOIN? Quais tabelas podem ser utilizando em um comando JOIN?
+
 2.	No caso do JOIN, o que é condição de junção. Qual cuidado devemos ter. 
+
 3.	Em relação a sintaxe, em um JOIN não é necessário utilizarmos condições (WHERE) - o comando irá executar normalmente. Porém, em questão de semântica, a cada junção é necessário ter ao menos 1 condição. Explique.
+
 4.	O que é produto cartesiano? Como funciona? Qual a relação com o JOIN.
+
 5.	Na elaboração de um consulta que envolve 1587 tabelas, serão necessários, quantas condições de junção?
+Serão necessárias no mínimo 1586, vez que o valor para condições de junção é igual ao valor de (tabelas - 1).
+
  **/
