@@ -51,7 +51,11 @@ AND cidade.estado_id = estado.id
 AND (estado.id = 1 OR estado.id = 4 OR estado.id = 5); 
 
 9.	Escreva o comando que liste os nomes dos estados com cadastros ativos que possuem algum cliente cadastrado.
-
+SELECT estado.nome
+FROM estado, cliente, cidade
+WHERE cliente.cidade_id = cidade.id
+AND cidade.estado_id = estado.id
+AND estado.ativo = 'S';
 
 10.	Escreva o comando que liste todas as vendas e o nome do respectivo funcionário que a realizou.
 SELECT venda.*, funcionario.nome
