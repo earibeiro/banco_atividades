@@ -74,9 +74,16 @@ WHERE produto.marca_id = marca.id
 AND produto.marca_id = '1';
 
 13. DESAFIO!!! Liste os nomes dos clientes do estado de São Paulo que já compraram o produto 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'.
-SELECT cliente.nome nome_cliente, estado.nome nome_estado, produto.nome nome_produto
-FROM cliente, estado, produto
-WHERE produto.id = 10 AND estado.id = 2;
+SELECT cliente.nome, estado.sigla, produto.nome
+FROM cliente, cidade, estado, venda, item_venda, produto
+WHERE cliente.cidade_id = cidade.id
+AND cidade.estado_id = estado.id
+AND estado.nome = 'SÃO PAULO'
+AND venda.cliente_id = cliente.id
+AND item_venda.venda_id = venda.id
+AND produto.id = item_venda.produto_id
+AND produto.nome = 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L';
+#Agora sim está retornando o corretamente!
 
 
 Semântica
