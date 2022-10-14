@@ -90,3 +90,13 @@ ORDER BY funcionario.nome;
 
 #7
 #Não existe tabela de fornecedores no banco de dados;
+
+#8
+-- Liste os nomes dos produtos vendidos no dia XXX (pode escolher um dia existente).
+SELECT produto.nome, venda.data
+FROM venda, produto, item_venda
+WHERE venda.id = item_venda.venda_id
+AND produto.id = item_venda.produto_id
+AND venda.data = '2022-03-16';
+
+
