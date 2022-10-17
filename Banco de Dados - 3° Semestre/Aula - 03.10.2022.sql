@@ -39,25 +39,25 @@ A consulta deve envolver mais de 4 tabelas.
  
  **/
  
- #1 
+-- 1) 
 SELECT cidade.nome
 FROM cidade, estado
 WHERE cidade.ativo = 'S'
 AND cidade.estado_id = 1
 AND cidade.estado_id = estado.id;
 
-#2
+-- 2)
 # Não é possível realizar a busca pois não existe uma tabela fornecedores no banco de dados;
 
 select * from funcionario;
 
-#3
+-- 3)
 SELECT cliente.nome, cidade.nome
 FROM cliente, cidade
 WHERE cliente.cidade_id = cidade.id
 AND (cliente.cidade_id = 2 OR cliente.cidade_id = 6);
 
-#4
+-- 4)
 SELECT * FROM estado; #1, 4 e 5
 SELECT funcionario.nome
 FROM funcionario, cidade, estado
@@ -67,7 +67,7 @@ AND (estado.id = 1 OR estado.id = 4 OR estado.id = 5);
 #Não é possível filtrar utilizando telefone pois tal coluna é inexistente;
 #Não é possível filtrar funcionarios ativos pois a coluna é inexistente;
 
-#5
+-- 5)
 SELECT produto.nome, unidade_medida.nome
 FROM produto, unidade_medida, venda, marca, item_venda
 WHERE unidade_medida.id = produto.unidade_medida_id
@@ -78,7 +78,7 @@ AND venda.id = 3;
 
 select * from unidade_medida;
 
-#6
+-- 6)
 SELECT funcionario.nome
 FROM cidade, funcionario, venda, item_venda, produto
 WHERE cidade.id = funcionario.cidade_id
@@ -88,11 +88,11 @@ AND produto.id = item_venda.produto_id
 AND produto.nome = 'REFRIGERANTE COCA-COLA GARRAFA PET 3 L'
 ORDER BY funcionario.nome;
 
-#7
+-- 7)
 #Não existe tabela de fornecedores no banco de dados;
 
-#8
--- Liste os nomes dos produtos vendidos no dia XXX (pode escolher um dia existente).
+
+-- 8) Liste os nomes dos produtos vendidos no dia XXX (pode escolher um dia existente).
 SELECT produto.nome, venda.data
 FROM venda, produto, item_venda
 WHERE venda.id = item_venda.venda_id
@@ -100,13 +100,39 @@ AND produto.id = item_venda.produto_id
 AND venda.data = '2022-03-16';
 
 
-#9
+/** 9)
 # Feliz com um bom atendimento, um determinado cliente entra em contato com o gerente para enviar uma lembrança ao funcionário.
 # O problema é que, além de não informar a sua identidade, ele não lembra do nome do funcionário. Sabe apenas que,na conversa, moraram 
-# na mesma cidade e possuem o mesmo nome. Neste contexto, faça as consultas necesárias para identificar o funcionário.
+# na mesma cidade e possuem o mesmo nome. Neste contexto, faça as consultas necesárias para identificar o funcionário.**/
 
 SELECT * FROM funcionario
 INNER JOIN cidade ON funcionario.cidade_id = cidade.id
 WHERE funcionario.nome IN (SELECT cliente.nome FROM cliente)
 AND cidade.nome IN (SELECT cidade.nome FROM cidade);
 
+
+/**10
+# Um cliente entra em contato com o gerente solicitando um possível erro de troco. O cliente não lembra o nome do funcionário, 
+# mas possui as seguintes informações:
+# (1) nome completo do cliente: Sophia Lima
+# (2) CPF do cliente: 321.109.923-95
+# (3) cidade onde cliente nasceu: BAURU/SÃO PAULO
+# (4) a cliente alega estar faltando 30 reais
+# Neste contexto, faça as consultas necessárias para descobrir o possível nome do funcionário. Justifique**/
+
+SELECT funcionario.nome
+FROM venda, cliente, funcionario, cidade
+WHERE cliente.nome = 'Sophia Lima'
+AND cidade.id = 1
+AND  cliente.id = venda.cliente_id
+AND funcionario.id = venda.funcionario_id
+AND cidade.id = cliente.cidade_id
+AND cidade.id = funcionario.cidade_id;
+
+-- Funcionrário: Marcos Goncalves (id 26) -  Sophia Lima (id 62)
+-- Utilizando a busca direta pela cliente, é possível visualizar que ela possui apenas duas compras.
+-- Porém, apenas Marcos possui o mesmo ID de cidade que Sophia.
+
+SELECT * 
+FROM venda
+WHERE cliente_id = 62;
