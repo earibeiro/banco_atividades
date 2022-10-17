@@ -136,3 +136,22 @@ AND cidade.id = funcionario.cidade_id;
 SELECT * 
 FROM venda
 WHERE cliente_id = 62;
+
+
+
+
+
+
+/** 11. De acordo com o projeto do SEU COLEGA, elabore uma consulta RELEVANTE que ajude de alguma forma a empresa. 
+A consulta deve envolver mais de 4 tabelas.**/
+
+-- Projeto Eduardo
+/** Qual o número do processo e o N° da OAB do advogado do cliente de nome 'Naruto', **/
+SELECT proc.numero_do_processo, num.numero_da_oab 
+FROM cliente, contrato_de_honorarios cdh, contrato_advogado ca, processo proc, advogado adv, numero_da_oab num
+WHERE cliente.nome LIKE 'N%'
+AND cliente.id = cdh.cliente_id
+AND cdh.id = ca.contrato_de_honorarios_id
+AND cdh.id = proc.contrato_de_honorarios_id
+AND adv.id = ca.advogado_id
+AND adv.id = num.advogado_id;  
