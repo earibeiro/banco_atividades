@@ -100,3 +100,13 @@ AND produto.id = item_venda.produto_id
 AND venda.data = '2022-03-16';
 
 
+#9
+# Feliz com um bom atendimento, um determinado cliente entra em contato com o gerente para enviar uma lembrança ao funcionário.
+# O problema é que, além de não informar a sua identidade, ele não lembra do nome do funcionário. Sabe apenas que,na conversa, moraram 
+# na mesma cidade e possuem o mesmo nome. Neste contexto, faça as consultas necesárias para identificar o funcionário.
+
+SELECT * FROM funcionario
+INNER JOIN cidade ON funcionario.cidade_id = cidade.id
+WHERE funcionario.nome IN (SELECT cliente.nome FROM cliente)
+AND cidade.nome IN (SELECT cidade.nome FROM cidade);
+
