@@ -154,4 +154,12 @@ AND cliente.id = cdh.cliente_id
 AND cdh.id = ca.contrato_de_honorarios_id
 AND cdh.id = proc.contrato_de_honorarios_id
 AND adv.id = ca.advogado_id
-AND adv.id = num.advogado_id;  
+AND adv.id = num.advogado_id;
+
+-- Projeto Vitor
+/** Informar a cidade da filial que informou o pedido de um Imobilizado **/
+SELECT cidade.nome
+FROM cidade, estado, filial, pedido
+WHERE pedido.filial_id = filial.id
+AND cidade.estado_id = estado.id
+AND cidade.id = filial.cidade_id;
